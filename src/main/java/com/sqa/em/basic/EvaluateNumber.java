@@ -10,11 +10,13 @@ package com.sqa.em.basic;
 import java.util.Scanner;
 
 /**
- * EvaluateNumber //ADDD (description of class)
+ * EvaluateNumber //Will evaluate a number and state where it lands within the
+ * digit 10.
  * <p>
  * //ADDD (description of core fields)
  * <p>
- * //ADDD (description of core methods)
+ * //evaulateNumber Method will determine if the number is greater than , less
+ * than or equal to 10
  *
  * @author Mora, Eduardo
  * @version 1.0.0
@@ -38,6 +40,9 @@ public class EvaluateNumber {
 		}
 	}
 
+	/**
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		// Declare the scanner object.
 		Scanner scanner = new Scanner(System.in);

@@ -28,22 +28,24 @@ public class EvaluateGrade {
 	public static void main(String[] args) {
 		// gets a grade number and prints out the grade letter
 		// initializer
-		int numberForGrade;
-		String gradeEnterByUser;
+		int gradeValue;
+		String input;
 		Scanner scanner = new Scanner(System.in);
-		System.out.println("Please enter the number 1-100 of the test score");
+		System.out.println("Please enter a whole numbers 1-100 to obtained the respective grade");
 		try {
-			gradeEnterByUser = scanner.nextLine();
-			numberForGrade = Integer.parseInt(gradeEnterByUser);
-			// Printing the letter based on the number entered.
-			System.out.print("\nThe number enter is " + numberForGrade + " and your gread is an ");
-			if (numberForGrade >= 90) {
+			// get input
+			input = scanner.nextLine();
+			// parse string input to integer
+			gradeValue = Integer.parseInt(input);
+			// Printing the letter grade based on the number entered.
+			System.out.print("\nThe number enter is '" + gradeValue + "' and your gread = ");
+			if (gradeValue >= 90) {
 				System.out.println("A");
-			} else if (numberForGrade >= 80) {
+			} else if (gradeValue >= 80) {
 				System.out.println("B");
-			} else if (numberForGrade >= 70) {
+			} else if (gradeValue >= 70) {
 				System.out.println("C");
-			} else if (numberForGrade >= 60) {
+			} else if (gradeValue >= 60) {
 				System.out.println("D");
 			} else {
 				System.out.println("F");
