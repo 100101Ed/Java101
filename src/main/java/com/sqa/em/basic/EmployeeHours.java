@@ -125,7 +125,7 @@ public class EmployeeHours {
 		EmployeeName = getEmployeeNameFromUser();
 		getHoursWorkedForEachWorkDay();
 		averageHourWorked = calculateAverage();
-		medium = calculateMedian();
+		//medium = calculateMedian();  TODO: Need to create a Dynamic array for the Medium to work and then update the rest of the file
 		printLog();
 		exitApplication();
 	}
