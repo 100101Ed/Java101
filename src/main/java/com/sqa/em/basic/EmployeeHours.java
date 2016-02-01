@@ -27,32 +27,32 @@ import java.util.Scanner;
 public class EmployeeHours {
 
 	static Scanner scanner = new Scanner(System.in);
+	// static String[] daysOfTheWeek = { "Monday", "Tueaday", "Wednesday",
+	// "Thursday", "Friday", "Saturday", "Sunday" };
 
-	static String[] daysOfTheWeek = { "Monday", "Tueaday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
-
-	static double[] hoursWorkedForEachDay = new double[7];
-
+	// static double[] hoursWorkedForEachDay;
 	static String EmployeeName = "";
+
+	static int workedDays = 0;
 
 	static double averageHourWorked = 0.0;
 
 	static double medium = 0.0;
 
-	public static double actualDaysWorked = 0;
-
-	public static double calculateAverage() {
+	// public static double actualDaysWorked = 0;
+	public static double calculateAverage(double[] hoursWorkedForEachDay) {
 		double sumOfNum = 0;
 		for (double num : hoursWorkedForEachDay) {
 			sumOfNum += num;
 		}
-		return (sumOfNum / actualDaysWorked);
+		return (sumOfNum / workedDays);
 	}
 
-	public static double calculateMedian() {
+	public static double calculateMedian(double[] hoursWorkedForEachDay) {
 		Arrays.sort(hoursWorkedForEachDay);
-		int middle = (int) (actualDaysWorked / 2);
+		int middle = workedDays / 2;
 		if (middle != 0) {
-			if ((actualDaysWorked % 2) != 0) {
+			if ((workedDays % 2) != 0) {
 				return hoursWorkedForEachDay[6 - middle];
 			} else {
 				return ((hoursWorkedForEachDay[6 - middle] / hoursWorkedForEachDay[6 - middle + 1]) / 2);
@@ -82,16 +82,15 @@ public class EmployeeHours {
 		return userInput;
 	}
 
-	public static void getHoursWorkedForEachWorkDay() {
+	public static double[] getHoursWorkedForEachWorkDay(int asdworkedDays) {
 		String userInput = "";
 		double hoursEnter = 0;
+		double[] hoursWorkedForEachDay = new double[workedDays];
 		System.out.println(
 				"Now I need to collect hours for the week.\nHours are expected to be entered in the following format: "
-						+ "\n\t0.5 which is 30 minutes" + "\n\t6.75 which is 6 hours and 45 minutes.)"
-						+ "\n\tIf the empoyee did not work that day enter 0\n");
-		for (int i = 0; i < daysOfTheWeek.length; i++) {
-			System.out
-					.println("Enter how many hours " + EmployeeName + " worked on " + daysOfTheWeek[i] + ", please? ");
+						+ "\n\t0.5 which is 30 minutes" + "\n\t6.75 which is 6 hours and 45 minutes.)");
+		for (int i = 0; i < workedDays; i++) {
+			System.out.println("Enter how many hours " + EmployeeName + " worked for " + (i + 1) + ", please? ");
 			userInput = scanner.nextLine();
 			try {
 				hoursEnter = Double.parseDouble(userInput);
@@ -111,28 +110,57 @@ public class EmployeeHours {
 				}
 			}
 			hoursWorkedForEachDay[i] = hoursEnter;
-			if (hoursEnter > 0.0) {
-				actualDaysWorked++;
-			}
 		}
+		for (double d : hoursWorkedForEachDay) {
+			System.out.println(" " + d);
+		}
+		return hoursWorkedForEachDay;
 	}
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		System.out.println("Welcome to the Employee Hours Log Application\n\n");
+		System.out.println("Welcome to the Employee Hours Log Application\n");
 		EmployeeName = getEmployeeNameFromUser();
-		getHoursWorkedForEachWorkDay();
-		averageHourWorked = calculateAverage();
-		//medium = calculateMedian();  TODO: Need to create a Dynamic array for the Medium to work and then update the rest of the file
+		System.out.println();
+		workedDays = getWorkedDays("How many days did " + EmployeeName + " worked last week? ");
+		double[] hoursWork = getHoursWorkedForEachWorkDay(workedDays);
+		// averageHourWorked = calculateAverage(workedDays);
+		// medium = calculateMedian(); TODO: Need to create a Dynamic array for
+		// the Medium to work and then update the rest of the file
 		printLog();
 		exitApplication();
 	}
 
 	public static void printLog() {
 		System.out.println("\n\n***************Log***************\n  Employee " + EmployeeName + "\nWorked "
-				+ actualDaysWorked + " day(s) of the week\n" + "Average hours = " + averageHourWorked
+				+ workedDays + " day(s) of the week\n" + "Average hours = " + averageHourWorked
 				+ "\nMedium for the week = " + medium + "\n***************Log***************\n");
+	}
+
+	/**
+	 * @return
+	 */
+	private static int getWorkedDays(String question) {
+		int num = 0;
+		while (true) {
+			try {
+				System.out.print(question);
+				num = Integer.parseInt(scanner.nextLine());
+				if (num > 7 || num < 1) {
+					throw new IllegalArgumentException(
+							"Number of days needs to be between 1 and 7 and the number you enter is " + num);
+					// continue;
+				}
+				break; // Refers to the while loop
+			} catch (NumberFormatException e) {
+				System.out.println("You have not enter a valid number.");
+				continue; // Not needed but it is used for clarity purpose and
+							 // to show its purpose of staying inside the while
+							 // loop
+			}
+		}
+		return num;
 	}
 }
